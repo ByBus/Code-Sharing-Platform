@@ -1,5 +1,5 @@
 .container {
-    width: 500px;
+    max-width: 70vw;
     margin: auto;
     box-sizing: border-box;
 }
@@ -14,17 +14,12 @@
 
 #code_snippet {
     margin-bottom: 8px;
-    height: 250px;
 }
 
 .codeBlock {
-    color: #ffffff;
     font-size: 12px;
-    font-weight: 300;
     line-height: 18px;
     margin: 0 0 16px;
-    background-color: #667583;
-    padding: 8px;
     border: 2px solid #4c4a4a;
 }
 
@@ -37,9 +32,10 @@
     font-weight: bold;
     line-height: 12px;
     letter-spacing: 1px;
-    margin: 0 0 4px;
     padding: 10px 15px 8px;
     text-transform: uppercase;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 button {

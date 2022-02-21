@@ -1,28 +1,33 @@
-package platform;
+package platform.model;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.stereotype.Component;
+import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-@Component
-public class CodeHolder {
+@Entity
+@Table(name = "CodeSnippet")
+public class CodeEntity {
     private static final String DATE_FORMATTER = "yyyy-MM-dd HH:mm:ss";
-    private static int counter = 0;
-    private final int id;
-    private String code;
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @CreationTimestamp
+    @Column(name = "date")
     private LocalDateTime date;
 
-    public CodeHolder(String code) {
+    private String code;
+
+    public CodeEntity(String code) {
         this.code = code;
-        this.date = LocalDateTime.now();
-        this.id = counter++;
     }
 
-    public CodeHolder() {
-        this("// write your code here");
-    }
+    public CodeEntity() { }
 
     public String getCode() {
         return code;
@@ -36,14 +41,13 @@ public class CodeHolder {
         this.date = date;
     }
 
-
     public String getDate() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
         return date.format(formatter);
     }
 
     @JsonIgnore
-    public int getId() {
+    public long getId() {
         return id;
     }
 }

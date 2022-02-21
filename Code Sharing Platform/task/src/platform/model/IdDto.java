@@ -1,9 +1,9 @@
-package platform;
+package platform.model;
 
 public class IdDto {
-    private String id;
+    private final String id;
 
-    public IdDto(int id) {
+    public IdDto(long id) {
         this.id = String.valueOf(id);
     }
 
