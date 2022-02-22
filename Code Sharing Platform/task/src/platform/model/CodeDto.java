@@ -1,28 +1,19 @@
 package platform.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class CodeDto {
-    private String code = "";
-    private String date = "";
-
-    public CodeDto(String code) {
-        this.code = code;
-    }
-
-    public CodeDto() { }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getDate() {
-        return date;
-    }
+    private String code;
+    private String date;
+    private long time;
+    private long views;
+    @JsonIgnore
+    private boolean isViewsLimited;
+    @JsonIgnore
+    private boolean isTimeLimited;
 }

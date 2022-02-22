@@ -24,9 +24,10 @@ public class RestCommandController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/api/code/{n}")
-    public ResponseEntity<CodeDto> getNCodeSnippets(@PathVariable long n) {
-        CodeEntity codeEntity = repository.getNth(n);
+    @GetMapping("/api/code/{id}")
+    public ResponseEntity<CodeDto> getNCodeSnippets(@PathVariable String id) {
+        CodeEntity codeEntity = repository.getNth(id);
+        repository.decrementViewsAndSave(codeEntity);
         return ResponseEntity.ok(mapper.mapToDTO(codeEntity));
     }
 

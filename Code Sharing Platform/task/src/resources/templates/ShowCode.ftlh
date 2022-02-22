@@ -13,7 +13,21 @@
         <div class = "inner">
             <#list codeHolders as codeHolder>
                 <div class = "codeWrapper">
-                    <span id="load_date">${codeHolder.date}</span>
+                    <div class="infoBar">
+                        <span id="load_date">${codeHolder.date}</span>
+                        <#if codeHolder.isTimeLimited()>
+                            <div class="restrictionWrapper">
+                                <span id="time_restriction">${codeHolder.time}</span>
+                                <span class="label">seconds before deletion</span>
+                            </div>
+                        </#if>
+                         <#if codeHolder.isViewsLimited()>
+                            <div class="restrictionWrapper">
+                                <span id="views_restriction">${codeHolder.views}</span>
+                                <span class="label">more views allowed</span>
+                            </div>
+                        </#if>
+                    </div>
                     <pre id="code_snippet" class="codeBlock"><code>${codeHolder.code}</code></pre>
                 </div>
             </#list>

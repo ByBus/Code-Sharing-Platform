@@ -1,53 +1,45 @@
 package platform.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 
 @Entity
 @Table(name = "CodeSnippet")
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Getter
+@Setter
 public class CodeEntity {
-    private static final String DATE_FORMATTER = "yyyy-MM-dd HH:mm:ss";
 
     @Id
-    @GeneratedValue
-    private long id;
+    private String id = UUID.randomUUID().toString();
 
     @CreationTimestamp
     @Column(name = "date")
     private LocalDateTime date;
 
+    @NonNull
     private String code;
 
-    public CodeEntity(String code) {
-        this.code = code;
-    }
+    @NonNull
+    private boolean isViewsLimited;
 
-    public CodeEntity() { }
+    @Column(name = "views_left")
+    @NonNull
+    private long viewLimits;
 
-    public String getCode() {
-        return code;
-    }
+    @NonNull
+    private boolean isTimeLimited;
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public String getDate() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMATTER);
-        return date.format(formatter);
-    }
-
-    @JsonIgnore
-    public long getId() {
-        return id;
-    }
+    @Column(name = "expiration_date")
+    @NonNull
+    private LocalDateTime dateLimit;
 }

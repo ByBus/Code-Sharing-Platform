@@ -1,0 +1,26 @@
+.container {
+    position: fixed;
+    background-color: #2196f3;
+    font-family: sans-serif;
+    box-sizing: border-box;
+    color: white;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.text {
+    padding: 16px;
+    border-left: 4px solid white;
+    margin: 16px;
+}
+
+.code {
+    position: absolute;
+    bottom: 0;
+    right: -2%;
+    font-size: 500px;
+    line-height: 300px;
+    font-family: fantasy;
+}

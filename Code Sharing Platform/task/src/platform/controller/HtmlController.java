@@ -9,6 +9,7 @@ import platform.buisness.Mapper;
 import platform.model.CodeDto;
 import platform.model.CodeEntity;
 import platform.persistence.RepositoryService;
+import platform.persistence.exceptions.CodeNotFoundException;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,22 +27,28 @@ public class HtmlController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/code/{n}")
-    public String getNthCodeSnippetHtml(Model model, @PathVariable long n) {
-        List<CodeDto> codeSnippets = Collections.singletonList(mapper.mapToDTO(repository.getNth(n)));
+    @GetMapping("/code/{id}")
+    public String getNthCodeSnippetHtml(Model model, @PathVariable String id) {
+        CodeEntity codeEntity = repository.getNth(id);
+        try {
+            repository.decrementViewsAndSave(codeEntity);
+        } catch (CodeNotFoundException e) {
+            return "404";
+        }
+        List<CodeDto> codeDtos = Collections.singletonList(mapper.mapToDTO(codeEntity));
         model.addAttribute("title", "Code");
-        model.addAttribute("codeHolders", codeSnippets);
+        model.addAttribute("codeHolders", codeDtos);
         return "ShowCode";
     }
 
     @GetMapping("/code/latest")
     public String getLatest10CodeSnippetsHtml(Model model) {
         List<CodeEntity> codeSnippets = repository.getLast10();
-        List<CodeDto> codeDTOS = codeSnippets.stream()
+        List<CodeDto> codeDtos = codeSnippets.stream()
                 .map(mapper::mapToDTO)
                 .collect(Collectors.toList());
         model.addAttribute("title", "Latest");
-        model.addAttribute("codeHolders", codeDTOS);
+        model.addAttribute("codeHolders", codeDtos);
         return "ShowCode";
     }
 
