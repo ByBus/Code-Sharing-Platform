@@ -19,7 +19,7 @@ public class RepositoryService {
         this.repository = repository;
     }
 
-    public CodeEntity getNth(String id) {
+    public CodeEntity getCodeEntity(String id) {
         return repository.findById(id).orElse(null);
     }
 

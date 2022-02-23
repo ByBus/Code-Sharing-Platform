@@ -29,12 +29,8 @@ public class HtmlController {
 
     @GetMapping("/code/{id}")
     public String getNthCodeSnippetHtml(Model model, @PathVariable String id) {
-        CodeEntity codeEntity = repository.getNth(id);
-        try {
-            repository.decrementViewsAndSave(codeEntity);
-        } catch (CodeNotFoundException e) {
-            return "404";
-        }
+        CodeEntity codeEntity = repository.getCodeEntity(id);
+        repository.decrementViewsAndSave(codeEntity);
         List<CodeDto> codeDtos = Collections.singletonList(mapper.mapToDTO(codeEntity));
         model.addAttribute("title", "Code");
         model.addAttribute("codeHolders", codeDtos);
