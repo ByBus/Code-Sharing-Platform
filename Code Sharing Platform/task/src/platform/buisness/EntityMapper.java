@@ -13,7 +13,7 @@ public class EntityMapper implements Mapper<CodeEntity, CodeDto> {
 
 
     @Autowired
-    Formatter formatter;
+    Formatter<LocalDateTime, String> formatter;
 
     @Override
     public CodeDto mapToDTO(CodeEntity entity) {
